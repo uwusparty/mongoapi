@@ -68,14 +68,19 @@ var questionSchema = new mongoose.Schema
 //Question Contact Model
 var Question = module.exports = mongoose.model('question', questionSchema);
 
-module.exports.getAll = function(callback, limit)
+module.exports.getAll = function(callback)
 {
-    Question.find({'status':'1'}, callback).limit(limit);
+    Question.find({'status':'1'}, callback);
 }
 
-module.exports.getByCategory = function(callback, category, limit)
+module.exports.getQuestionsByUser = function(callback, id)
 {
-    Question.find({'category':category}, callback).limit(limit);
+    Question.find({'id_author': id}, callback);
+}
+
+module.exports.getByCategory = function(callback, category)
+{
+    Question.find({'category':category}, callback);
 }
 
 module.exports.createQuestion = function(callback, body)
@@ -86,4 +91,9 @@ module.exports.createQuestion = function(callback, body)
 module.exports.changeAuthor = function(callback, id)
 {
     Question.updateMany({"id_author":id}, {$set:{"id_author":0}}, callback);
+}
+
+module.exports.getCategories = function(callback)
+{
+    Question.distinct("category",{}, callback);
 }

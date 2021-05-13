@@ -2,7 +2,7 @@
 
 //Initialize express router
 let router = require('express').Router();
-
+var cors = require('cors')
 //Set default API response                                  request/response
 router.get('/', function(req, res)
 {
@@ -16,14 +16,19 @@ router.get('/', function(req, res)
 
 const { Router } = require('express');
 
+//npm install cors
+//El cors lo hemos usado para poder recibir datos desde una petición de AJAX
+router.use(cors());
 //Usamos el controlador para poder juntar la vista y el modelo
 var questionsController = require('./questionsController');
 var usersController = require('./usersController');
 var commonController = require('./commonController');
 
 router.route('/questions').get(questionsController.getQuestions);
+router.route('/questions/create').post(questionsController.createQuestion);
+router.route('/questions/id/:id').get(questionsController.getQuestionsByUser);
+router.route('/questions/categories').get(questionsController.getCategories);
 router.route('/questions/:category').get(questionsController.getQuestionsByCategory);
-router.route('/questions').post(questionsController.createQuestion);
 
 router.route('/users').get(usersController.getUsers);
 router.route('/users/create').post(usersController.create);

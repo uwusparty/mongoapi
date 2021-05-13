@@ -3,7 +3,7 @@ var preguntas =
     {
         "category": "History",
         "image_url": "",
-        "id_author": -1,
+        "id_author": 62,
         "status": 1,
         "question": 
         {
@@ -37,7 +37,7 @@ var preguntas =
     {
         "category": "Celebrities",
         "image_url": "",
-        "id_author": -1,
+        "id_author": 62,
         "status": 1,
         "question": 
         {
@@ -71,7 +71,7 @@ var preguntas =
     {
         "category": "Entertainment",
         "image_url": "",
-        "id_author": -1,
+        "id_author": 62,
         "status": 1,
         "question": 
         {
@@ -105,7 +105,7 @@ var preguntas =
     {
         "category": "Entertainment",
         "image_url": "",
-        "id_author": -1,
+        "id_author": 62,
         "status": 1,
         "question": 
         {
@@ -139,7 +139,7 @@ var preguntas =
     {
         "category": "Entertainment",
         "image_url": "",
-        "id_author": -1,
+        "id_author": 62,
         "status": 1,
         "question": 
         {
@@ -173,7 +173,7 @@ var preguntas =
     {
         "category": "Entertainment",
         "image_url": "",
-        "id_author": -1,
+        "id_author": 62,
         "status": 1,
         "question": 
         {
@@ -207,7 +207,7 @@ var preguntas =
     {
         "category": "Science & Nature",
         "image_url": "",
-        "id_author": -1,
+        "id_author": 62,
         "status": 1,
         "question": 
         {
@@ -241,7 +241,7 @@ var preguntas =
     {
         "category": "Entertainment",
         "image_url": "",
-        "id_author": -1,
+        "id_author": 62,
         "status": 1,
         "question": 
         {
@@ -275,7 +275,7 @@ var preguntas =
     {
         "category": "Entertainment",
         "image_url": "",
-        "id_author": -1,
+        "id_author": 62,
         "status": 1,
         "question": 
         {
@@ -309,7 +309,7 @@ var preguntas =
     {
         "category": "Entertainment",
         "image_url": "",
-        "id_author": 69,
+        "id_author": 62,
         "status": 1,
         "question": 
         {
@@ -339,8 +339,11 @@ var preguntas =
                 "times": 9
             }
         ]
-    }
+    }, 
+    
 ]
+
+
 
 //Conectarse a la base de datos
 db = connect("localhost:27017/admin");

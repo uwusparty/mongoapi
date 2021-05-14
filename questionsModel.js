@@ -73,10 +73,36 @@ module.exports.getAll = function(callback)
     Question.find({'status':'1'}, callback);
 }
 
-module.exports.getQuestionsByUser = function(callback, id)
+module.exports.getQuestionQuantityByUserAndCategory = function(callback, id, category)
 {
-    Question.find({'id_author': id}, callback);
+    if(category != "All")
+    {
+        Question.countDocuments({'id_author': id, 'category': category}, callback);
+    }
+    else if(category == "All")
+    {
+        Question.countDocuments({'id_author': id}, callback);
+    }
 }
+
+//NO ME GUSTA //
+module.exports.getQuestionsByUser = function(callback, id, limit)
+{
+    Question.find({'id_author': id}, callback).limit(parseInt(limit));
+}
+
+module.exports.getQuestionsByUserAndCategory = function(callback, id, category, limit, offset)
+{
+    if(category != "All")
+    {
+        Question.find({'id_author': id, 'category': category}, callback).skip(parseInt(limit*offset)).limit(parseInt(limit));
+    }
+    else if(category == "All")
+    {
+        Question.find({'id_author': id}, callback).skip(parseInt(limit*offset)).limit(parseInt(limit));
+    }
+}
+/////
 
 module.exports.getByCategory = function(callback, category)
 {

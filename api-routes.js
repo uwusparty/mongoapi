@@ -24,39 +24,42 @@ var questionsController = require('./questionsController');
 var usersController = require('./usersController');
 var commonController = require('./commonController');
 
+//URL para recibir todas las preguntas
 router.route('/questions').get(questionsController.getQuestions);
-router.route('/questions/create').post(questionsController.createQuestion);
-router.route('/questions/id/:id').get(questionsController.getQuestionsByUser);
-router.route('/questions/categories').get(questionsController.getCategories);
-router.route('/questions/:category').get(questionsController.getQuestionsByCategory);
 
+//URL para crear preguntas
+router.route('/questions/create').post(questionsController.createQuestion);
+
+//URL para obtener preguntas filtradas por usuario, categoria, con límite y offset
+router.route('/questions/id/:id/category/:category/limit/:limit/offset/:offset').get(questionsController.getQuestionsByUserAndCategory);
+
+//URL para obtener preguntas de un usuario con límite
+router.route('/questions/id/:id/limit/:limit').get(questionsController.getQuestionsByUser);
+
+//URL para obtener todas las preguntas de un usuario
+router.route('/questions/id/:id').get(questionsController.getQuestionsByUser);
+
+//URL para obtener todas las preguntas de un usuario filtradas por categoria
+router.route('/questions/id/:id/category/:category').get(questionsController.getQuestionsByUserAndCategory);
+
+//URL para recibir la cantidad de preguntas del usuario según una categoría (All para todas)
+router.route('/questions/id/:id/category/:category/quantity').get(questionsController.getQuestionQuantityByUserAndCategory);
+
+//URL para recibir todas las categorias existentes
+router.route('/questions/categories').get(questionsController.getCategories);
+
+//URL para recibir preguntas en base a una categoría (preguntas de todos los usuarios)
+router.route('/questions/category/:category').get(questionsController.getQuestionsByCategory);
+
+//URL para recibir los usuarios de la base de mongodb
 router.route('/users').get(usersController.getUsers);
+
+//URL para crear usuarios
 router.route('/users/create').post(usersController.create);
 
+//URL para dar de baja usuarios
 router.route('/users/delete').delete(commonController.delete);
 
-/*
-router.route('/series/alta').post(seriesController.altaSerie);
-router.route('/peliculas/alta').post(peliculasController.altaPelicula);
-
-router.route('/series/baja/:id').delete(comunController.bajaContenido);
-router.route('/peliculas/baja/:id').delete(comunController.bajaContenido);
-
-router.route('/:contenido/editar/:id').put(comunController.editarContenido);
-
-router.route('/top').get(comunController.top);
-
-router.route('/series').get(seriesController.getSeries);
-router.route('/series/:genero').get(seriesController.getSeriesGenero);
-
-router.route('/peliculas').get(peliculasController.getPeliculas);
-router.route('/peliculas/:genero').get(peliculasController.getPeliculasGenero);
-
-router.route('/documentales').get(documentalesController.getDocumentales);
-router.route('/documentales/arnold').get(documentalesController.getArnold);
-router.route('/documentales/alta').post(documentalesController.altaDocumental);
-router.route('/documentales/baja/:id').delete(comunController.bajaContenido);
-*/
 
 //Export API routes
 //Así podemos usar en el resto de nuestro web service la instancia de "router"

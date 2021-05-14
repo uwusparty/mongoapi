@@ -53,7 +53,64 @@ exports.getQuestionsByUser = function(req, res)
                 }
             );
         }
-    }, req.params.id);
+    }, req.params.id, req.params.limit);
+}
+
+exports.getQuestionsByUserAndCategory = function(req, res)
+{
+    console.log(req.params);
+    questions.getQuestionsByUserAndCategory(function(err, questions)
+    {
+        if(err)
+        {
+            res.json
+            (
+                {
+                    status: "error",
+                    message: err
+                }
+            );
+        }
+        else
+        {
+            res.json
+            (
+                {
+                    status: "Success",
+                    message: "Questions received",
+                    data: questions
+                }
+            );
+        }
+    }, req.params.id, req.params.category, req.params.limit, req.params.offset);
+}
+
+exports.getQuestionQuantityByUserAndCategory = function(req, res)
+{
+    questions.getQuestionQuantityByUserAndCategory(function(err, quantity)
+    {
+        if(err)
+        {
+            res.json
+            (
+                {
+                    status: "error",
+                    message: err
+                }
+            );
+        }
+        else
+        {
+            res.json
+            (
+                {
+                    status: "success",
+                    message: "Quantity received",
+                    data: quantity
+                }
+            );
+        }
+    }, req.params.id, req.params.category);
 }
 
 exports.getCategories = function(req, res)

@@ -6,8 +6,8 @@ var questionSchema = new mongoose.Schema
     {
         category:
         {
-            type: String,
-            required: true
+            en: {type: String, required: true},
+            es: {type: String, required: true}
         },
         image_url:
         {
@@ -73,11 +73,12 @@ module.exports.getAll = function(callback)
     Question.find({'status':'1'}, callback);
 }
 
+
 module.exports.getQuestionQuantityByUserAndCategory = function(callback, id, category)
 {
     if(category != "All")
     {
-        Question.countDocuments({'id_author': id, 'category': category}, callback);
+        Question.countDocuments({'id_author': id, $or: [{'category.es': category}, {'category.en': category}]}, callback);
     }
     else if(category == "All")
     {
@@ -95,7 +96,7 @@ module.exports.getQuestionsByUserAndCategory = function(callback, id, category, 
 {
     if(category != "All")
     {
-        Question.find({'id_author': id, 'category': category}, callback).skip(parseInt(limit*offset)).limit(parseInt(limit));
+        Question.find({'id_author': id, $or: [{'category.es': category}, {'category.en': category}]}, callback).skip(parseInt(limit*offset)).limit(parseInt(limit));
     }
     else if(category == "All")
     {
@@ -106,7 +107,7 @@ module.exports.getQuestionsByUserAndCategory = function(callback, id, category, 
 
 module.exports.getByCategory = function(callback, category)
 {
-    Question.find({'category':category}, callback);
+    Question.find({$or: [{'category.es': category}, {'category.en': category}]}, callback);
 }
 
 module.exports.createQuestion = function(callback, body)

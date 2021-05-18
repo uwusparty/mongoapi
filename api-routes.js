@@ -19,6 +19,7 @@ const { Router } = require('express');
 //npm install cors
 //El cors lo hemos usado para poder recibir datos desde una petición de AJAX
 router.use(cors());
+
 //Usamos el controlador para poder juntar la vista y el modelo
 var questionsController = require('./questionsController');
 var usersController = require('./usersController');

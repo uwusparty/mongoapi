@@ -28,6 +28,34 @@ exports.getQuestions = function(req, res)
     });
 };
 
+exports.getQuestionByID = function(req, res)
+{
+    questions.getQuestionByID(function(err, question)
+    {
+        if(err)
+        {
+            res.json
+            (
+                {
+                    status: "error",
+                    message: err
+                }
+            );
+        }
+        else
+        {
+            res.json
+            (
+                {
+                    status: "Success",
+                    message: "Question by id received",
+                    data: question
+                }
+            );
+        }
+    }, req.params.id, req.params.limit);
+}
+
 exports.getQuestionsByUser = function(req, res)
 {
     questions.getQuestionsByUser(function(err, questions)

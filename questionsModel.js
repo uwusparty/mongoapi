@@ -73,6 +73,10 @@ module.exports.getAll = function(callback)
     Question.find({'status':'1'}, callback);
 }
 
+module.exports.getQuestionByID = function(callback, id)
+{
+    Question.find({'_id': id}, callback);
+}
 
 module.exports.getQuestionQuantityByUserAndCategory = function(callback, id, category)
 {

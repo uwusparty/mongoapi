@@ -28,6 +28,9 @@ var commonController = require('./commonController');
 //URL para recibir todas las preguntas
 router.route('/questions').get(questionsController.getQuestions);
 
+//URL para recibir una pregunta por id
+router.route('/question/id/:id').get(questionsController.getQuestionByID);
+
 //URL para crear preguntas
 router.route('/questions/create').post(questionsController.createQuestion);
 

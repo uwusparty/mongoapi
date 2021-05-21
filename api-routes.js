@@ -25,14 +25,17 @@ var questionsController = require('./questionsController');
 var usersController = require('./usersController');
 var commonController = require('./commonController');
 
+
+router.route('/prueba/:id').get(usersController.prueba);
+
 //URL para recibir todas las preguntas
 router.route('/questions').get(questionsController.getQuestions);
 
-//URL para recibir una pregunta por id
-router.route('/question/id/:id').get(questionsController.getQuestionByID);
-
 //URL para crear preguntas
 router.route('/questions/create').post(questionsController.createQuestion);
+
+//URL para editar preguntas
+router.route('/questions/edit/id/:id').put(questionsController.editQuestion);
 
 //URL para obtener preguntas filtradas por usuario, categoria, con límite y offset
 router.route('/questions/id/:id/category/:category/limit/:limit/offset/:offset').get(questionsController.getQuestionsByUserAndCategory);
@@ -55,8 +58,17 @@ router.route('/questions/categories').get(questionsController.getCategories);
 //URL para recibir preguntas en base a una categoría (preguntas de todos los usuarios)
 router.route('/questions/category/:category').get(questionsController.getQuestionsByCategory);
 
+//URL para recibir una pregunta por id
+router.route('/questions/:id').get(questionsController.getQuestionByID);
+
+//URL para recibir las preguntas puntuadas por un usuario
+router.route('/users/id/:id').get(usersController.getUserRatedQuestions);
+
 //URL para recibir los usuarios de la base de mongodb
 router.route('/users').get(usersController.getUsers);
+
+//URL para editar un usuario
+router.route('/users/edit/id/:id').put(usersController.editUser);
 
 //URL para crear usuarios
 router.route('/users/create').post(usersController.create);

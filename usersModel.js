@@ -10,11 +10,19 @@ var userSchema = new mongoose.Schema
             type: Number,
             required: true
         },
+        /*
         rated_questions:
         {
             type: Array,
             default: null
-        }
+        }*/
+        rated_questions:
+        [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'question'
+            }
+        ]
     },
     {
         collection: 'users'
@@ -27,9 +35,26 @@ var userSchema = new mongoose.Schema
 //User Contact Model
 var User = module.exports = mongoose.model('user', userSchema);
 
+module.exports.prueba = function(callback, id)
+{
+    User.find({"_id":id}, callback).populate('rated_questions');
+}
+
+module.exports.getUserRatedQuestions = function(callback, id)
+{
+    User.find({"_id":id}, {"_id":1, "rated_questions":1},callback);
+}
+
 module.exports.getAll = function(callback, limit)
 {
     User.find({},{"_id":1, "rated_questions":1},callback).limit(limit);
+}
+
+module.exports.editUser = function(callback, id, body)
+{
+    //User.findByIdAndUpdate(id, body, {new: true}, callback);
+    console.log(id, body);
+    User.updateOne({"_id": id}, {$push:{"rated_questions":body.rated_questions}}, callback);
 }
 
 module.exports.createUser = function(callback, id)

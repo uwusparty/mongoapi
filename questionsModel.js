@@ -119,6 +119,11 @@ module.exports.createQuestion = function(callback, body)
     Question.create(body, callback);
 }
 
+module.exports.editQuestion = function(callback, id, body)
+{
+    Question.findByIdAndUpdate(id, body, {new: true}, callback);
+}
+
 module.exports.changeAuthor = function(callback, id)
 {
     Question.updateMany({"id_author":id}, {$set:{"id_author":0}}, callback);

@@ -224,3 +224,31 @@ exports.createQuestion = function(req, res)
         }
     }, req.body);
 };
+
+exports.editQuestion = function(req, res)
+{
+    questions.editQuestion(function(err, question)
+    {
+        if(err)
+        {
+            res.json
+            (
+                {
+                    status: "error",
+                    message: err
+                }
+            );
+        }
+        else
+        {
+            res.json
+            (
+                {
+                    status: "Success",
+                    message: "Question created",
+                    data: question
+                }
+            );
+        }
+    }, req.params.id, req.body);
+}

@@ -35,9 +35,15 @@ var userSchema = new mongoose.Schema
 //User Contact Model
 var User = module.exports = mongoose.model('user', userSchema);
 
-module.exports.prueba = function(callback, id)
+module.exports.valorar = function(callback, id)
 {
     User.find({"_id":id}, callback).populate('rated_questions');
+}
+
+module.exports.removeValorar = function(callback, idUsuario, body)
+{
+    console.log(body.rated_questions)
+    User.updateOne({"_id":idUsuario}, {$pull:{"rated_questions":body.rated_questions}}, callback);
 }
 
 module.exports.getUserRatedQuestions = function(callback, id)
@@ -52,8 +58,6 @@ module.exports.getAll = function(callback, limit)
 
 module.exports.editUser = function(callback, id, body)
 {
-    //User.findByIdAndUpdate(id, body, {new: true}, callback);
-    console.log(id, body);
     User.updateOne({"_id": id}, {$push:{"rated_questions":body.rated_questions}}, callback);
 }
 

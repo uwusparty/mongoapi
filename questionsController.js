@@ -252,3 +252,33 @@ exports.editQuestion = function(req, res)
         }
     }, req.params.id, req.body);
 }
+
+exports.addTimes = function(req, res)
+{
+    questions.addTimes(function(err, question)
+    {
+        if(err)
+        {
+            res.json
+            (
+                {
+                    status: "error",
+                    message: err
+                }
+            );
+        }
+        else
+        {
+            res.json
+            (
+                {
+                    status: "Success",
+                    message: "Add times",
+                    data: question
+                }
+            );
+        }
+    }, req.params.id, req.body);
+}
+
+

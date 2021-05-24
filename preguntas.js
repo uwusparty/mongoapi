@@ -234,7 +234,7 @@ var preguntas =
             "en": "Science & Nature",
             "es": "Ciencia y Naturaleza"
         },
-        "image_url": "ciencia/neuronas",
+        "image_url": "ciencia/neuronas.jpg",
         "id_author": 62,
         "status": 1,
         "question":

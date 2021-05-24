@@ -25,9 +25,6 @@ var questionsController = require('./questionsController');
 var usersController = require('./usersController');
 var commonController = require('./commonController');
 
-
-router.route('/prueba/:id').get(usersController.prueba);
-
 //URL para recibir todas las preguntas
 router.route('/questions').get(questionsController.getQuestions);
 
@@ -36,6 +33,9 @@ router.route('/questions/create').post(questionsController.createQuestion);
 
 //URL para editar preguntas
 router.route('/questions/edit/id/:id').put(questionsController.editQuestion);
+
+//URL para añadir "Times" a las respuestas
+router.route('/questions/times/id/:id').put(questionsController.addTimes);
 
 //URL para obtener preguntas filtradas por usuario, categoria, con límite y offset
 router.route('/questions/id/:id/category/:category/limit/:limit/offset/:offset').get(questionsController.getQuestionsByUserAndCategory);
@@ -62,13 +62,20 @@ router.route('/questions/category/:category').get(questionsController.getQuestio
 router.route('/questions/:id').get(questionsController.getQuestionByID);
 
 //URL para recibir las preguntas puntuadas por un usuario
+//ESTA NO SIRVE PARA NADAAAAAAAAA
 router.route('/users/id/:id').get(usersController.getUserRatedQuestions);
 
 //URL para recibir los usuarios de la base de mongodb
 router.route('/users').get(usersController.getUsers);
 
-//URL para editar un usuario
-router.route('/users/edit/id/:id').put(usersController.editUser);
+//URL para ver las preguntas valoradas de un usuario (el id es del usuario)
+//PUT para añadirlas
+//DELETE para borrarlas
+//Por la URL le pasas el ID, por el body le pasas un rated_questions (una pregunta id)
+router.route('/users/rated/id/:id')
+.get(usersController.valorar)
+.put(usersController.editUser)
+.delete(usersController.removeValorar);
 
 //URL para crear usuarios
 router.route('/users/create').post(usersController.create);

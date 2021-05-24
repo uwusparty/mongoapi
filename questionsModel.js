@@ -75,7 +75,7 @@ module.exports.getAll = function(callback)
 
 module.exports.getQuestionByID = function(callback, id)
 {
-    Question.find({'_id': id}, callback);
+    Question.findById(id, callback);
 }
 
 module.exports.getQuestionQuantityByUserAndCategory = function(callback, id, category)
@@ -90,7 +90,7 @@ module.exports.getQuestionQuantityByUserAndCategory = function(callback, id, cat
     }
 }
 
-//NO ME GUSTA //
+//NO ME GUSTA 
 module.exports.getQuestionsByUser = function(callback, id, limit)
 {
     Question.find({'id_author': id}, callback).limit(parseInt(limit));
@@ -119,8 +119,16 @@ module.exports.createQuestion = function(callback, body)
     Question.create(body, callback);
 }
 
+//Este es para el juego, al dar un click le sumas uno en Time
+module.exports.addTimes = function(callback, id, body)
+{
+    Question.findByIdAndUpdate(id, body, {new: true}, callback);
+}
+
+//Si editas una pregunta el status se cambiará a Pendiente
 module.exports.editQuestion = function(callback, id, body)
 {
+    body.status = -1;
     Question.findByIdAndUpdate(id, body, {new: true}, callback);
 }
 

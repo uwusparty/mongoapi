@@ -1,8 +1,8 @@
 users = require('./usersModel');
 
-exports.prueba = function(req, res)
+exports.valorar = function(req, res)
 {
-    users.prueba(function(err, user)
+    users.valorar(function(err, user)
     {
         if(err)
         {
@@ -20,12 +20,40 @@ exports.prueba = function(req, res)
             (
                 {
                     status: "Success",
-                    message: "pruebas",
+                    message: "Pregunta valorada",
                     data: user
                 }
             );
         }
     }, req.params.id);
+}
+
+exports.removeValorar = function(req, res)
+{
+    users.removeValorar(function(err, user)
+    {
+        if(err)
+        {
+            res.json
+            (
+                {
+                    status: "error",
+                    message: err
+                }
+            );
+        }
+        else
+        {
+            res.json
+            (
+                {
+                    status: "Success",
+                    message: "Valoración retirada",
+                    data: user
+                }
+            );
+        }
+    }, req.params.id, req.body);
 }
 
 exports.getUserRatedQuestions = function(req, res)

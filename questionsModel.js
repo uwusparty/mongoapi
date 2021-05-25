@@ -73,6 +73,11 @@ module.exports.getAll = function(callback)
     Question.find({'status':'1'}, callback);
 }
 
+module.exports.deleteByID = function(callback, id)
+{
+    Question.deleteOne({"_id":id}, callback);
+}
+
 module.exports.getQuestionByID = function(callback, id)
 {
     Question.findById(id, callback);
@@ -82,32 +87,66 @@ module.exports.getQuestionQuantityByUserAndCategory = function(callback, id, cat
 {
     if(category != "All")
     {
-        Question.countDocuments({'id_author': id, $or: [{'category.es': category}, {'category.en': category}]}, callback);
+        if(id == "*")
+        {
+            Question.countDocuments({$or: [{'category.es': category}, {'category.en': category}]}, callback);
+        }
+        else
+        {
+            Question.countDocuments({'id_author': id, $or: [{'category.es': category}, {'category.en': category}]}, callback);
+        }
     }
     else if(category == "All")
     {
-        Question.countDocuments({'id_author': id}, callback);
+        if(id == "*")
+        {
+            Question.countDocuments(callback);
+        }
+        else
+        {
+            Question.countDocuments({'id_author': id}, callback);
+        }
     }
 }
 
-//NO ME GUSTA 
 module.exports.getQuestionsByUser = function(callback, id, limit)
 {
-    Question.find({'id_author': id}, callback).limit(parseInt(limit));
+    if(id == "*")
+    {
+        Question.find(callback).limit(parseInt(limit));
+    }
+    else
+    {
+        Question.find({'id_author': id}, callback).limit(parseInt(limit));
+    }
+
 }
 
 module.exports.getQuestionsByUserAndCategory = function(callback, id, category, limit, offset)
 {
     if(category != "All")
     {
-        Question.find({'id_author': id, $or: [{'category.es': category}, {'category.en': category}]}, callback).skip(parseInt(limit*offset)).limit(parseInt(limit));
+        if(id == "*")
+        {
+            Question.find({$or: [{'category.es': category}, {'category.en': category}]}, callback).skip(parseInt(limit*offset)).limit(parseInt(limit));
+        }
+        else
+        {
+            Question.find({'id_author': id, $or: [{'category.es': category}, {'category.en': category}]}, callback).skip(parseInt(limit*offset)).limit(parseInt(limit));
+        }
     }
     else if(category == "All")
     {
-        Question.find({'id_author': id}, callback).skip(parseInt(limit*offset)).limit(parseInt(limit));
+        if(id == "*")
+        {
+            Question.find(callback).skip(parseInt(limit*offset)).limit(parseInt(limit));
+        }
+        else
+        {
+            Question.find({'id_author': id}, callback).skip(parseInt(limit*offset)).limit(parseInt(limit));   
+        }
     }
 }
-/////
 
 module.exports.getByCategory = function(callback, category)
 {
@@ -130,6 +169,12 @@ module.exports.editQuestion = function(callback, id, body)
 {
     body.status = -1;
     Question.findByIdAndUpdate(id, body, {new: true}, callback);
+}
+
+module.exports.editStatus = function(callback, id, status)
+{
+    console.log(id, status);
+    Question.updateOne({"_id":id}, {"status":status}, callback);
 }
 
 module.exports.changeAuthor = function(callback, id)

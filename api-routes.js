@@ -31,8 +31,14 @@ router.route('/questions').get(questionsController.getQuestions);
 //URL para crear preguntas
 router.route('/questions/create').post(questionsController.createQuestion);
 
-//URL para editar preguntas
+//Borrar pregunta
+router.route('/questions/delete').delete(questionsController.deleteByID);
+
+//URL para editar preguntas (Al editar siempre lo pone en -1, por eso tenemos otra URL para cambiar el estado)
 router.route('/questions/edit/id/:id').put(questionsController.editQuestion);
+
+//Editar el estado de una pregunta
+router.route('/questions/status').put(questionsController.editStatus);
 
 //URL para añadir "Times" a las respuestas
 router.route('/questions/times/id/:id').put(questionsController.addTimes);

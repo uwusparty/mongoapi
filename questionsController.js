@@ -122,7 +122,7 @@ exports.getQuestionQuantityByUserAndCategory = function(req, res)
             res.json
             (
                 {
-                    status: "error",
+                    status: "error hola",
                     message: err
                 }
             );
@@ -225,6 +225,34 @@ exports.createQuestion = function(req, res)
     }, req.body);
 };
 
+exports.deleteByID = function(req, res)
+{
+    questions.deleteByID(function(err, question)
+    {
+        if(err)
+        {
+            res.json
+            (
+                {
+                    status: "error",
+                    message: err
+                }
+            );
+        }
+        else
+        {
+            res.json
+            (
+                {
+                    status: "Success",
+                    message: "Question deleted",
+                    data: question
+                }
+            );
+        }
+    }, req.body.id);
+};
+
 exports.editQuestion = function(req, res)
 {
     questions.editQuestion(function(err, question)
@@ -281,4 +309,31 @@ exports.addTimes = function(req, res)
     }, req.params.id, req.body);
 }
 
+exports.editStatus = function(req, res)
+{
+    questions.editStatus(function(err, question)
+    {
+        if(err)
+        {
+            res.json
+            (
+                {
+                    status: "error",
+                    data: err
+                }
+            )
+        }
+        else
+        {
+            res.json
+            (
+                {
+                    status: "Success",
+                    message: "Status changed",
+                    data: question
+                }
+            )  
+        }
+    }, req.body.id, req.body.status);
+}
 

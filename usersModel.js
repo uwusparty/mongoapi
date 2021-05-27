@@ -10,12 +10,6 @@ var userSchema = new mongoose.Schema
             type: Number,
             required: true
         },
-        /*
-        rated_questions:
-        {
-            type: Array,
-            default: null
-        }*/
         rated_questions:
         [
             {

@@ -45,16 +45,12 @@ var questionSchema = new mongoose.Schema
         ],
         id_author: 
         {
+
             type: Number,
-            //0 usuario eliminado
-            //-1 Sistema
             default: -1
         },
         status:
         {
-            //-1 Pendiente
-            // 0 Rechazado
-            // 1 Aceptado
             type: Number,
             default: -1
         }
@@ -62,7 +58,6 @@ var questionSchema = new mongoose.Schema
     {
         collection: 'questions'
     }
-    
 );
 
 //Question Contact Model

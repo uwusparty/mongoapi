@@ -28,6 +28,34 @@ exports.valorar = function(req, res)
     }, req.params.id);
 }
 
+exports.getQuestionLikes = function(req, res)
+{
+    users.getQuestionLikes(function(err, question)
+    {
+        if(err)
+        {
+            res.json
+            (
+                {
+                    status: "error",
+                    message: err
+                }
+            );
+        }
+        else
+        {
+            res.json
+            (
+                {
+                    status: "Success",
+                    message: "Question likes received",
+                    data: question
+                }
+            );
+        }
+    }, req.params.id);
+}
+
 exports.removeValorar = function(req, res)
 {
     users.removeValorar(function(err, user)

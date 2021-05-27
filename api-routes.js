@@ -67,6 +67,9 @@ router.route('/questions/category/:category').get(questionsController.getQuestio
 //URL para recibir una pregunta por id
 router.route('/questions/:id').get(questionsController.getQuestionByID);
 
+//Mirar valoraciones de una pregunta
+router.route('/questions/likes/id/:id').get(usersController.getQuestionLikes);
+
 //URL para recibir las preguntas puntuadas por un usuario
 //ESTA NO SIRVE PARA NADAAAAAAAAA
 router.route('/users/id/:id').get(usersController.getUserRatedQuestions);
@@ -88,7 +91,6 @@ router.route('/users/create').post(usersController.create);
 
 //URL para dar de baja usuarios
 router.route('/users/delete').delete(commonController.delete);
-
 
 //Export API routes
 //Así podemos usar en el resto de nuestro web service la instancia de "router"

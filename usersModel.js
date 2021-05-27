@@ -70,3 +70,8 @@ module.exports.deleteUser = function(callback, id)
 {
     User.deleteOne({"_id": id}, callback);
 }
+
+module.exports.getQuestionLikes = function(callback, id)
+{
+    User.countDocuments({"rated_questions":{"$in":[id]}}, callback);
+}

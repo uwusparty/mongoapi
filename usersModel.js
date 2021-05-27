@@ -20,15 +20,16 @@ var userSchema = new mongoose.Schema
         [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'question'
+                ref: 'question',
+                autopopulate: true
             }
         ]
     },
     {
         collection: 'users'
     }
-    
 );
+userSchema.plugin(require('mongoose-autopopulate'));
 
 //Para relacionar las preguntas en preguntas_puntuadas, usar [ObjectId("605dbd1343e3f8d753da5cad")]
 
@@ -37,7 +38,7 @@ var User = module.exports = mongoose.model('user', userSchema);
 
 module.exports.valorar = function(callback, id)
 {
-    User.find({"_id":id}, callback).populate('rated_questions');
+    User.find({"_id":id}, callback);
 }
 
 module.exports.removeValorar = function(callback, idUsuario, body)

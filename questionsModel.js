@@ -182,7 +182,14 @@ module.exports.changeAuthor = function(callback, id)
     Question.updateMany({"id_author":id}, {$set:{"id_author":0}}, callback);
 }
 
-module.exports.getCategories = function(callback)
+module.exports.getCategories = function(callback, id)
 {
-    Question.distinct("category",{}, callback);
+    if(id == "*")
+    {
+        Question.distinct("category",{}, callback);
+    }
+    else
+    {
+        Question.find({"id_author":id}).distinct("category",{}, callback);
+    }
 }

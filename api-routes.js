@@ -27,16 +27,12 @@ var commonController = require('./commonController');
 
 //URL para recibir todas las preguntas
 router.route('/questions').get(questionsController.getQuestions);
-
 //URL para crear preguntas
 router.route('/questions/create').post(questionsController.createQuestion);
-
 //Borrar pregunta
 router.route('/questions/delete').delete(questionsController.deleteByID);
-
 //URL para editar preguntas (Al editar siempre lo pone en -1, por eso tenemos otra URL para cambiar el estado)
 router.route('/questions/edit/id/:id').put(questionsController.editQuestion);
-
 //Editar el estado de una pregunta
 router.route('/questions/status').put(questionsController.editStatus);
 
@@ -59,7 +55,7 @@ router.route('/questions/id/:id/category/:category').get(questionsController.get
 router.route('/questions/id/:id/category/:category/quantity').get(questionsController.getQuestionQuantityByUserAndCategory);
 
 //URL para recibir todas las categorias existentes
-router.route('/questions/categories').get(questionsController.getCategories);
+router.route('/questions/categories/id/:id').get(questionsController.getCategories);
 
 //URL para recibir preguntas en base a una categoría (preguntas de todos los usuarios)
 router.route('/questions/category/:category').get(questionsController.getQuestionsByCategory);
@@ -72,7 +68,7 @@ router.route('/questions/likes/id/:id').get(usersController.getQuestionLikes);
 
 //URL para recibir las preguntas puntuadas por un usuario
 //ESTA NO SIRVE PARA NADAAAAAAAAA
-router.route('/users/id/:id').get(usersController.getUserRatedQuestions);
+//router.route('/users/id/:id').get(usersController.getUserRatedQuestions);
 
 //URL para recibir los usuarios de la base de mongodb
 router.route('/users').get(usersController.getUsers);

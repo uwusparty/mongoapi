@@ -166,7 +166,7 @@ exports.getCategories = function(req, res)
                 }
             );
         }
-    });
+    }, req.params.id);
 }
 
 exports.getQuestionsByCategory = function(req, res)
